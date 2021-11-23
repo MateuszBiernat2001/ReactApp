@@ -1,0 +1,21 @@
+export const theme = {
+  primary: '#DC1818',
+  monday:'#6CF86C',
+  tuesday:'#FF1493',
+  wednesday:'#6CF8F8',
+  thursday:'#D36CF8',
+  friday:'#3464DF',
+  saturday:'#DAA520',
+  sunday:'#ADFF2F',
+  light:200,
+  medium:300,
+  bold:500,  
+  fontSize: {
+    xxs: '1rem',
+    xs: '1.2rem',
+    s: '1.6rem',
+    m: '2.1rem',
+    l: '2.4rem',
+    xl: '4rem',
+  },
+}
