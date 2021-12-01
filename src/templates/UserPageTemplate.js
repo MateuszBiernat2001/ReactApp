@@ -1,8 +1,11 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Sidebar from '../components/organisms/Sidebar';
 import styled from "styled-components";
-
+import ButtonIcon from "../components/atoms/ButtonIcon/ButtonIcon";
+import plus from '../assets/icons/plus.svg'
+import NewItemBar from "../components/organisms/NewItemBar";
+import withContext from '../hoc/withContext'
 
 const GridWrapper = styled.div`
    display: grid;
@@ -19,22 +22,58 @@ const GridWrapper = styled.div`
   }
 `;
 
-const UserPageTemplate = ({children, pageType}) => (
-  <>
-    <Sidebar pageType={pageType}/>
-    <GridWrapper>
-      {children}
-    </GridWrapper>
-  </>
-);
+const StyledButtonIcon = styled(ButtonIcon)`
+  position: fixed;
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : theme.monday)};
+  border-radius: 5px;
+  bottom: 40px;
+  right: 40px;
+  background-size: 80%;
+  height: 45px;
+  width: 45px;
+  z-index:99999;
+`;
 
-UserPageTemplate.propTypes = {
-  children : PropTypes.element.isRequired,
-  pageType: PropTypes.oneOf(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])
+class UserPageTemplate extends Component {
+  state = {
+    isNewItemBarVisible: false,
+  };
+
+  handleNewItemBarToggle = () => {
+    this.setState(prevState => ({
+      isNewItemBarVisible: !prevState.isNewItemBarVisible,
+    }));
+  };
+
+  render(){
+    const {children, pageType} = this.props;
+    const { isNewItemBarVisible } = this.state;
+
+    return (
+      <>
+      <Sidebar pageType={pageType}/>
+      <GridWrapper>
+        {children}
+      </GridWrapper>
+      <StyledButtonIcon
+        icon={plus}
+        activeColor={pageType}
+        onClick={this.handleNewItemBarToggle}
+      />
+      <NewItemBar isVisible={isNewItemBarVisible} />
+      </>
+    )
+  }
 }
 
-UserPageTemplate.defaultProps = {
-  pageType: 'monday',
+
+UserPageTemplate.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
 };
 
-export default UserPageTemplate;
+
+UserPageTemplate.defaultProps = {
+  pageContext: 'monday',
+};
+
+export default withContext(UserPageTemplate);

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-position: relative;
+  position: relative;
   height:33px;
   width: 80px;
   background-color: ${({theme}) => theme.primary};

@@ -39,8 +39,6 @@ const StyledLinksList = styled.ul`
 `;
 
 
-
-
 const Sidebar = ({ pageType }) => (
   <StyledWrapper activeColor={pageType}>
     <StyledLinksList>
@@ -72,10 +70,6 @@ const Sidebar = ({ pageType }) => (
 
 Sidebar.propTypes = {
   pageType: PropTypes.oneOf(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']),
-};
-
-Sidebar.defaultProps = {
-  pageType: 'monday',
 };
 
 export default Sidebar;
